@@ -1,6 +1,6 @@
 # miniprojet
 
-# DEMANGE Sébastien réalisé grâce à l'aide incontestée du meilleur professeur : Mr.Alexandre LEROUX 
+# DEMANGE Sébastien projet DART réalisé grâce à l'aide incontestée du meilleur professeur : Mr.Alexandre LEROUX 
 
 A new Flutter project.
 
