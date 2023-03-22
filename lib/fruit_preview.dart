@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:miniprojet/cart_model.dart';
 import './classes/fruit.dart';
 import './screens/fruitDetailsScreen.dart';
+import 'package:provider/provider.dart';
 
 class FruitPreview extends StatelessWidget {
   const FruitPreview(
@@ -21,7 +23,7 @@ class FruitPreview extends StatelessWidget {
       onTap: () => {openDetails(fruit)},
       trailing: Material(
           child: IconButton(
-        onPressed: () => {addToCart(fruit)},
+        onPressed: () => {Provider.of<CartModel>(context, listen: false).add(fruit)},
         icon: const Icon(Icons.shopping_cart_checkout),
         color: Colors.black,
       )),

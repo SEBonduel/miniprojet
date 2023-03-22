@@ -2,13 +2,23 @@ import 'dart:convert';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:miniprojet/screens/cartScreen.dart';
 import 'package:provider/provider.dart';
 import '../classes/fruit.dart';
 import './fruitsMaster.dart';
 import 'package:http/http.dart' as http;
+import './cart_model.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => CartModel()),
+        Provider(create: (context) => CartScreen),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 
@@ -36,13 +46,13 @@ Future<List<Fruit>> loadFruits() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  MyApp({super.key});
+  
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+          title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.yellow,
       ),

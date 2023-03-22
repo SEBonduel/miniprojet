@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import '../classes/fruit.dart';
+import '../cart_model.dart';
+import 'package:provider/provider.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key, required this.cart});
@@ -19,27 +21,28 @@ class _CartScreenState extends State<CartScreen> {
       appBar: AppBar(
         title: const Text("Panier"),
       ),
-      body: ListView.builder(
-      itemCount: widget.cart.length,
+      body:Column(children: [ Expanded(child: Consumer<CartModel>(builder: (context, cart, child) {
+      return ListView.builder(
+      itemCount: cart.items.length,
       itemBuilder: (context, index) {
         return ListTile(
-          title: Text(widget.cart[index].name),
-          subtitle: Text("${widget.cart[index].price}€"),
+          title: Text(cart.items[index].name),
+          subtitle: Text("${cart.items[index].price}€"),
           trailing: IconButton(
             onPressed: () {
-              setState(() {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text(
-                        '${widget.cart[index].name} a bien été supprimé du panier !')));
-                widget.cart.removeAt(index);
-              });
+                        '${cart.items[index].name} a bien été supprimé du panier !')));
+                Provider.of<CartModel>(context, listen: false)
+                    .remove(cart.items[index]);
             },
             icon: const Icon(Icons.delete),
           ),
         );
-      },
-    ));
-  }
+      },      );
+    },),)],),  
+    ); 
+  } 
 }
 
          
