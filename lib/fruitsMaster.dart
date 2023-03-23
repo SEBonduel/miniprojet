@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-import 'dart:js_util';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +9,7 @@ import './screens/fruitDetailsScreen.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'cart_model.dart';
+import 'package:flutter_map/flutter_map.dart';
 
 class FruitsMaster extends StatefulWidget {
   const FruitsMaster(
@@ -25,15 +23,15 @@ class FruitsMaster extends StatefulWidget {
 
   @override
   State<FruitsMaster> createState() => _FruitsMasterState();
-}
+  }
 
 int next(int min, int max) => min + math.Random().nextInt(max - min);
 
 List<BottomNavigationBarItem> getBottomNavigationBarItems() {
   return const [
-    BottomNavigationBarItem(icon: const Icon(Icons.home), label: "Accueil"),
+    BottomNavigationBarItem(icon: Icon(Icons.home), label: "Accueil"),
     BottomNavigationBarItem(
-        icon: const Icon(Icons.shopping_cart), label: "Panier"),
+        icon: Icon(Icons.shopping_cart), label: "Panier"),
   ];
 }
 
@@ -70,7 +68,7 @@ class _FruitsMasterState extends State<FruitsMaster> {
       appBar: AppBar(
         title: Consumer<CartModel>(builder: (context, cart, child) {
           return Text(
-            "Panier (${cart.items.length})",
+            "${cart.items.length} article(s) dans votre panier | Montant ${cart.totalPrice} €",
             style: const TextStyle(color: Colors.white),
           );
         }),
@@ -104,7 +102,7 @@ class _FruitsMasterState extends State<FruitsMaster> {
           FloatingActionButton(
             onPressed: () {
               setState(() {
-                cart.clear();
+                      Provider.of<CartModel>(context, listen: false).clear();
               });
             },
             tooltip: 'Empty Cart',
@@ -123,6 +121,7 @@ class _FruitsMasterState extends State<FruitsMaster> {
                         )),
               );
             },
+           
             tooltip: 'View Cart',
             child: const Icon(Icons.shopping_cart),
           )

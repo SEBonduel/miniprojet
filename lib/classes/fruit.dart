@@ -29,4 +29,6 @@ class Fruit {
       json['image'],
     );
   }
+
+  get originLocation => null;
 }

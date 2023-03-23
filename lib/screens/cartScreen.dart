@@ -19,7 +19,8 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Panier"),
+        title: const Text("Panier "),
+         
       ),
       body:Column(children: [ Expanded(child: Consumer<CartModel>(builder: (context, cart, child) {
       return ListView.builder(
